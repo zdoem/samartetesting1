@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+
+    <form-beans>  
+        <!-- remark2011 <form-bean name="TestXForm" type="com.aisoft.multi.doem.FileUpload2Form"/>
+        <form-bean name="TestForm"  type="com.aisoft.multi.doem.TestForm"></form-bean> -->        
+        
+        <form-bean name="loginForm" type="com.samart.etesting.web.accessverification.form.LoginForm"></form-bean>
+        <form-bean name="regForm" type="com.samart.etesting.web.register.form.RegisterForm"></form-bean>
+        
+        <!-- *************************ADMIN***************************************** -->
+        <form-bean name="mngUserForm" type="com.samart.etesting.web.admin.form.ManageUserForm"></form-bean>
+        <form-bean name="masUserForm" type="com.samart.etesting.web.admin.form.MasterUserForm"></form-bean>
+        
+         <!-- *************************StaffExample***************************************** -->
+        <form-bean name="addSubjectForm" type="com.samart.etesting.web.staffexam.form.SubjectForm"></form-bean>
+        <form-bean name="subjectMngForm" type="com.samart.etesting.web.staffexam.form.SubjectMngForm"></form-bean>
+        <form-bean name="objectiveForm" type="com.samart.etesting.web.staffexam.form.ObjectiveForm"></form-bean>
+        <form-bean name="setExamForm" type="com.samart.etesting.web.staffexam.form.SetExamForm"></form-bean>
+        
+        <!-- *************************StaffExample***************************************** -->
+        <form-bean name="rtStatForm" type="com.samart.etesting.report.form.StatReportForm"></form-bean>
+      
+    </form-beans> 
+    <global-exceptions>  
+    </global-exceptions>
+    <global-forwards>
+         <forward name="loginForm"  path="/LoginFormAction.do"/>  
+    </global-forwards>
+    <action-mappings>
+    	  <!-- go to page load form -->
+          <action name="loginForm"   path="/LoginFormAction"  forward="/jsp/accessverification/Login.jsp"/>
+         
+         <!-- LoginAction -->
+         
+         <action name="loginForm"  path="/LoginAction" scope="request"  type="com.samart.etesting.web.accessverification.action.LoginAction" parameter="test">
+             <forward name="AGAIN_LOGIN" path="/LoginFormAction.do" />
+             <forward name="ADMIN_PAGE" path="ADMIN.PAGE" />
+             <forward name="STAFFEXAM_PAGE" path="STAFFEXAM.PAGE" />
+             <forward name="TESTERS_PAGE" path="TESTERS.PAGE" />           
+             <forward name="ERROR" path="errors.page" />  
+         </action>
+         
+          <!-- RegisterAction -->
+         <action name="regForm"  input="input.RegisterFrom"  path="/RegisterAction" scope="request" validate="true" type="com.samart.etesting.web.register.action.RegisterAction" parameter="test">
+            <forward name="SUCCESS" path="/jsp/message/TestSuccess.jsp" />
+            <forward name="ERROR" path="/jsp/message/TestErrors.jsp" />
+         </action>   
+         
+<!-- ******************************Admin module ************************************-->  
+         <!-- ManageUserAction -->
+         <action name="mngUserForm"  input="/"  path="/ManageUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.ManageUserAction" parameter="LOAD">
+            <!-- <forward name="SUCCESS" path="/jsp/admin/ManageUserForm.jsp" /> -->
+            <forward name="SUCCESS" path="success.ManageUserForm" />            
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action name="mngUserForm"  input="/"  path="/EditManageUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.ManageUserAction" parameter="EDIT">
+            <forward name="SUCCESS" path="/ManageUserAction.do" />
+            <forward name="EDIT_FORM" path="admin.editForm" />
+            <forward name="ERROR" path="errors.page" />
+         </action>    
+         
+          <action name="mngUserForm"  input="/"  path="/ViewManageUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.ManageUserAction" parameter="VIEW">
+            <forward name="SUCCESS" path="admin.viewForm" />       
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action name="mngUserForm"  input="/"  path="/DeleteManageUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.ManageUserAction" parameter="DELETE">
+            <forward name="SUCCESS" path="/ManageUserAction.do" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <!--************* MasterUserAction ****************-->
+        <action name="masUserForm" input="/"   path="/MasterUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.MasterUserAction" parameter="LOAD">
+            <forward name="SUCCESS" path="success.MasterUserForm" />            
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action name="masUserForm"  input="/"  path="/ViewMasterUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.MasterUserAction" parameter="VIEW">
+            <forward name="SUCCESS" path="admin.viewMasterForm" />       
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action name="masUserForm"  input="/"  path="/EditMasterUserAction"  scope="request"  type="com.samart.etesting.web.admin.action.MasterUserAction" parameter="EDIT">
+            <!--  <forward name="SUCCESS" path="/MasterUserAction.do" />-->
+            <forward name="SUCCESS" path="success.page" />
+            <forward name="EDIT_FORM" path="admin.editMasterForm" />
+            <forward name="ERROR" path="errors.page" />
+         </action>  
+<!-- ****************************** Admin module ************************************-->            
+
+<!-- ******************************Staff Example module ************************************
+		 <action name="addSubjectForm"  path="/AddSubjectFormAction" forward="/jsp/staffexam/SubjectAdd.jsp"/>
+-->            
+		 <action name="addSubjectForm" input="staff.addSubjectForm" path="/AddSubjectAction"  scope="request"  validate="true"  type="com.samart.etesting.web.staffexam.action.SubjectAction" parameter="ADD">
+            <forward name="SUCCESS" path="success.page" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action name="subjectMngForm"  input="/"  path="/ManageSubjectAction"  scope="request"  type="com.samart.etesting.web.staffexam.action.SubjectAction" parameter="LOAD">
+            <forward name="SUCCESS" path="staff.MngSubjectForm" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+        <action name="subjectMngForm"  input="/"  path="/ViewSubjectAction"  scope="request"  type="com.samart.etesting.web.staffexam.action.SubjectAction" parameter="VIEW">
+            <forward name="SUCCESS" path="staff.subjectViewForm" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+        <action name="subjectMngForm"  input="/"  path="/EditSubjectAction"  scope="request"  type="com.samart.etesting.web.staffexam.action.SubjectAction" parameter="EDIT">
+            <forward name="SUCCESS" path="/ManageSubjectAction.do" />
+            <forward name="EDIT_FORM" path="staff.subjectEditForm" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action name="subjectMngForm"  input="/"  path="/DeleteSubjectAction"  scope="request"  type="com.samart.etesting.web.staffexam.action.SubjectAction" parameter="DELETE">
+            <forward name="SUCCESS" path="/ManageSubjectAction.do" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <!-- ###################### Objective ######################-->
+         <action  name="objectiveForm"  path="/ObjectiveAction"  scope="request"  validate="true"  type="com.samart.etesting.web.staffexam.action.ObjectiveAction" parameter="LOAD">
+            <forward name="SUCCESS" path="/jsp/staffexam/ObjectiveAdd.jsp" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+          <action name="objectiveForm" path="/AddObjectiveAction"  scope="request"  validate="true"  type="com.samart.etesting.web.staffexam.action.ObjectiveAction" parameter="ADD">
+            <forward name="SUCCESS" path="success.page" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+         <action  name="setExamForm"  path="/SetExamAction"  scope="request"  validate="true"  type="com.samart.etesting.web.staffexam.action.SetExamAction" parameter="LOAD">
+            <forward name="SUCCESS" path="/jsp/staffexam/SetExamAdd.jsp" />
+            <forward name="ERROR" path="errors.page" />
+         </action> 
+         
+          <action name="setExamForm" path="/AddSetExamAction"  scope="session"  validate="true"  type="com.samart.etesting.web.staffexam.action.SetExamAction" parameter="ADD">
+            <forward name="SUCCESS" path="/jsp/staffexam/SetExamAdd.jsp" />
+            <forward name="ERROR" path="/jsp/message/TestErrors.jsp" />
+         </action> 
+         
+<!-- ******************************Staff Example module ************************************-->            
+ 
+ <!-- ******************************REPORTING************************************--> 
+         <action name="mngUserForm"  path="/ReportScoreFormAction"  forward="report.ScoreForm"/>
+         <action name="mngUserForm" path="/ReportHistoryFormAction"  forward="report.HistoryForm"/>
+         <action name="rtStatForm" path="/ReportStatFormAction"  forward="report.StatForm"/>
+       
+         
+        <action name="rtStatForm" input="/"  path="/ReportStatAction"  scope="request"   type="com.samart.etesting.report.action.StatReportAction" parameter="LOAD">
+            <forward name="SUCCESS" path="success.page" />
+            <forward name="ERROR" path="errors.page" />
+         </action>    
+ <!-- ******************************REPORTING************************************-->      
+        <!-- test action -->
+         <action input="/index.jsp"  path="/testAction" scope="request"  type="com.samart.web.action.BookAction" parameter="test">
+            <forward name="SUCCESS" path="/jsp/message/TestSuccess.jsp" />
+            <forward name="ERROR" path="errors.page" />
+        </action>       
+
+    </action-mappings>   
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />   
+    <!--  <controller bufferSize="4096" contentType="text/html;charset=UTF-8" processorClass="com.samart.etesting.web.util.WebRequestController" /> -->
+    <message-resources parameter="ActionResources_th"/>
+    <!--ApplicationResource.properties   -->  
+   
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+</struts-config>

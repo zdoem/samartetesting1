@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+	<definition name="common.main" page="/jsp/templates/template.jsp">
+		<put name="title" type="string" value="E-Testing ::" />
+		<put name="header" value="/jsp/templates/head.jsp" />
+		<!--
+		<put name="menu" value="/templates/left.jsp" />
+		<put name="body" value="/tiles/content.jsp">-->
+		
+		<put name="bottom" value="/jsp/templates/footer.jsp" />	
+	</definition>
+ 
+   <!-- Admin  -->
+    <definition name="success.ManageUserForm" extends="common.main" >
+	   <put name="body" value="/jsp/admin/ManageUserForm.jsp" />  
+   </definition>
+   <definition name="admin.editForm" extends="common.main">
+   		<put name="body" value="/jsp/admin/ManageUserEdit.jsp"></put>
+   </definition>  
+    <definition name="admin.viewForm" extends="common.main">
+   		<put name="body" value="/jsp/admin/ManageUserView.jsp"></put>
+   </definition>
+   <definition name="input.RegisterFrom" extends="common.main">
+   		<put name="body" value="/jsp/register/RegisterForm.jsp"></put>
+   </definition>
+     
+    <!-- MasterUserForm -->
+   <definition name="success.MasterUserForm" extends="common.main" >
+	   <put name="body" value="/jsp/admin/MasterUserForm.jsp" />  
+   </definition>
+   <definition name="admin.viewMasterForm" extends="common.main" >
+	   <put name="body" value="/jsp/admin/MasterUserView.jsp" />  
+   </definition>   
+  <definition name="admin.editMasterForm" extends="common.main" >
+	   <put name="body" value="/jsp/admin/MasterUserEdit.jsp" />  
+   </definition>
+     
+   <!-- Staff Example module  -->
+   <definition name="staff.addSubjectForm" extends="common.main" >
+	   <put name="body" value="/jsp/staffexam/SubjectAdd.jsp" />  
+   </definition>
+      
+   <definition name="staff.MngSubjectForm" extends="common.main" >
+	   <put name="body" value="/jsp/staffexam/SubjectListForm.jsp" />  
+   </definition>
+   
+      <definition name="staff.subjectViewForm" extends="common.main" >
+	   <put name="body" value="/jsp/staffexam/SubjectView.jsp" />  
+   </definition>
+   
+      <definition name="staff.subjectEditForm" extends="common.main" >
+	   <put name="body" value="/jsp/staffexam/SubjectEdit.jsp" />  
+   </definition>
+   
+   <!-- REPORT  -->  
+   <definition name="report.HistoryForm" extends="common.main" >
+	   <put name="body" value="/jsp/report/ReportHistoryTestingForm.jsp" />  
+   </definition>
+   <definition name="report.StatForm" extends="common.main" >
+	   <put name="body" value="/jsp/report/ReportStatRandomBySubjectForm.jsp" />  
+   </definition>   
+   <definition name="report.ScoreForm" extends="common.main" >
+	   <put name="body" value="/jsp/report/ReportScoreBySubjectAndDateForm.jsp" />  
+   </definition>
+   
+   <!-- MENU MAIN Page -->
+       <definition name="ADMIN.PAGE" extends="common.main">
+	   <put name="body" value="/jsp/admin/HomeAdmin.jsp"></put>
+	   </definition>
+       <definition name="STAFFEXAM.PAGE" extends="common.main">
+	   <put name="body" value="/jsp/staffexam/HomeStaffexam.jsp"></put>
+	   </definition>
+       <definition name="TESTERS.PAGE" extends="common.main">
+	   <put name="body" value="/jsp/testers/HomeTesters.jsp"></put>
+	   </definition>
+	       <definition name="errors.page" extends="common.main">
+	   <put name="body" value="/jsp/message/TestErrors.jsp"></put>
+	   </definition>
+	   
+	   
+   <!-- Errors Page -->
+    <definition name="errors.page" extends="common.main">
+   <put name="body" value="/jsp/message/TestErrors.jsp"></put>
+   </definition>
+   
+   <!-- Success Page -->
+   <definition name="success.page" extends="common.main">
+   <put name="body" value="/jsp/message/TestSuccess.jsp"></put>
+   </definition>
+</tiles-definitions>
