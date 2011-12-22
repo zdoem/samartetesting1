@@ -1,0 +1,153 @@
+DROP PROCEDURE IF EXISTS db2_watchdog.DELETE_TYPE;
+CREATE PROCEDURE db2_watchdog.`DELETE_TYPE`(
+  IN   p_typeId  int(3),
+  OUT  p_IntResult   int(1)
+)
+BEGIN
+    
+    DECLARE _d_id  int(11) DEFAULT 0;
+    DECLARE _d_type_id  int(3) DEFAULT 0;
+    
+    SELECT  D_ID,
+            D_TYPE_ID
+    INTO  _d_id,
+          _d_type_id 
+    FROM   doger
+    WHERE  doger.D_TYPE_ID = p_typeId;
+    
+    IF  _d_type_id > 0 THEN
+      SET p_IntResult = 0;
+    ELSE
+      SET p_IntResult = 1;
+      
+      DELETE FROM db2_watchdog.type 
+      WHERE TYPE_ID = p_typeId;
+      
+    END IF;
+END;
+
+
+
+----------------
+DROP PROCEDURE IF EXISTS db2_watchdog.GET_DOG;
+CREATE PROCEDURE db2_watchdog.`GET_DOG`(
+      IN p_dogId  varchar(14),
+      OUT p_dogSubject varchar(4048),
+      OUT p_dogDesc varchar(4048),
+      OUT p_dogSolution  varchar(4048),
+      OUT p_dogComment1 varchar(255),
+      OUT p_createDate  varchar(255),
+      OUT p_updateDate  varchar(255),
+      OUT p_dogTypeName varchar(255),
+      OUT p_dogTypeId  int(3)
+    )
+BEGIN   
+    DECLARE v_dogID bigint DEFAULT 0;
+    
+    SELECT d.D_ID,
+          d.D_TYPE_ID, 
+          d.D_SUBJECT,
+          d.D_DESC,
+          d.D_SOLUTION,
+          d.D_COMMENT1,
+          d.CREATE_DATE,
+          d.UPDATE_DATE,
+          t.TYPE_NAME
+          
+    INTO  v_dogID,
+          p_dogTypeId,
+          p_dogSubject,
+          p_dogDesc,
+          p_dogSolution,
+          p_dogComment1,
+          p_createDate,
+          p_updateDate,
+          p_dogTypeName
+          
+    FROM db2_watchdog.doger d INNER JOIN db2_watchdog.type t 
+					 ON (d.D_TYPE_ID = t.TYPE_ID) 
+    WHERE d.D_ID = p_dogId;
+END;
+
+
+DROP PROCEDURE IF EXISTS db2_watchdog.GET_TYPE;
+CREATE PROCEDURE db2_watchdog.`GET_TYPE`(
+        IN   p_typeId                 int(3),
+        OUT   p_typeName             varchar(255),
+        OUT   p_typeDesc            varchar(255)
+     )
+BEGIN                     
+	 
+   SELECT 
+          t.TYPE_NAME, 
+          t.TYPE_DESC
+    INTO  
+          p_typeName,
+          p_typeDesc
+    FROM db2_watchdog.type t 
+    WHERE t.TYPE_ID = p_typeId;
+END;
+
+
+DROP PROCEDURE IF EXISTS db2_watchdog.INSERT_DOG;
+CREATE PROCEDURE db2_watchdog.`INSERT_DOG`(
+IN p_dogId  bigint(14),
+IN p_dogTypeId int(3),
+IN p_dogSubject longtext,
+IN p_dogDesc longtext,
+IN p_dogSolution  longtext,
+IN p_dogComment1 varchar(255)
+)
+BEGIN
+				INSERT INTO DOGER(D_ID,D_TYPE_ID,D_SUBJECT, D_DESC,D_SOLUTION,D_COMMENT1,CREATE_DATE)
+				VALUES (p_dogId,p_dogTypeId,p_dogSubject,p_dogDesc,p_dogSolution,p_dogComment1,null);
+END;
+
+
+
+
+DROP PROCEDURE IF EXISTS db2_watchdog.INSERT_TYPE;
+CREATE PROCEDURE db2_watchdog.`INSERT_TYPE`(
+IN p_typeName varchar(255),
+IN p_typeDesc varchar(255)
+)
+BEGIN
+				INSERT INTO TYPE(TYPE_NAME, TYPE_DESC)
+				VALUES (p_typeName, p_typeDesc);
+END;
+
+
+
+
+DROP PROCEDURE IF EXISTS db2_watchdog.UPDATE_DOG;
+CREATE PROCEDURE db2_watchdog.`UPDATE_DOG`(
+      IN p_dogId  varchar(14),
+      IN p_dogSubject varchar(4048),
+      IN p_dogDesc varchar(4048),
+      IN p_dogSolution  varchar(4048),
+      IN p_dogComment1 varchar(255),
+      IN p_dogTypeId  int(3)
+     )
+BEGIN                     
+	  UPDATE db2_watchdog.doger  d
+    SET d.D_SUBJECT = p_dogSubject ,
+        d.D_DESC = p_dogDesc,
+        d.D_SOLUTION = p_dogSolution,
+        d.D_COMMENT1 = p_dogComment1,
+        d.D_TYPE_ID = p_dogTypeId
+    WHERE d.D_ID = p_dogId;
+END;
+
+DROP PROCEDURE IF EXISTS db2_watchdog.UPDATE_TYPE;
+CREATE PROCEDURE db2_watchdog.`UPDATE_TYPE`(
+        IN   p_typeId                 int(3),
+        IN   p_typeName             varchar(255),
+        IN   p_typeDesc            varchar(255)
+     )
+BEGIN                     
+	  UPDATE db2_watchdog.type  t
+    SET t.TYPE_NAME = p_typeName , t.TYPE_DESC = p_typeDesc
+    WHERE t.TYPE_ID = p_typeId;
+END;
+
+
