@@ -24,6 +24,7 @@ function onOkay() {
 <br>
 
 <h2>&nbsp;</h2>
+<center>
 <form action="<%=url %>" method="post" name="frmMsg" width="800px" align="center">
 <table width="400" border="1" align="center" celpadding="0" celspacing="0" bordercolor="#009933">
 <tr> 
@@ -45,3 +46,4 @@ function onOkay() {
 <br>
 
 <%@ include file="/jsp/template_footer.jsp" %>
+</center>
