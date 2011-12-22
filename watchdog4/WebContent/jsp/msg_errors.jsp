@@ -22,15 +22,15 @@ function onOkay() {
 	String context = request.getContextPath();
 %>
 <br>
-
+<body>
 <h2>&nbsp;</h2>
 <center>
-<form action="<%=url %>" method="post" name="frmMsg" width="800px" align="center">
-<table width="400" border="1" align="center" celpadding="0" celspacing="0" bordercolor="#009933">
-<tr> 
+<form action="<%=url %>" method="post" name="frmMsg" width="800px" >
+<table width="400" border="1" celpadding="0" celspacing="0" bordercolor="#009933" align="center">
+<tr > 
      <td bgcolor="#7db223"><div style="color:#FFFFFF;font-size:12px; font-family:Arial; font-weight:bold;"><b>Errors Message</b></div></td>
 </tr>
-<tr> 
+<tr > 
      <td bgcolor="#ece9d8" style="color:#006600; font-size:12px; font-family:Arial; font-weight:bold;">
       <center>
        <img src="<%=context %>/images/sad.png" width="100" height="100" border="0">
@@ -44,6 +44,6 @@ function onOkay() {
 </table>
 </form>
 <br>
-
+<body>
 <%@ include file="/jsp/template_footer.jsp" %>
 </center>
