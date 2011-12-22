@@ -1,0 +1,7 @@
+CREATE TABLE `type` (
+  `TYPE_ID` int(3) NOT NULL auto_increment,
+  `TYPE_NAME` varchar(255) default NULL,
+  `TYPE_DESC` varchar(255) default NULL,
+  PRIMARY KEY  (`TYPE_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
