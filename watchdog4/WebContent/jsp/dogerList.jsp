@@ -43,12 +43,13 @@ function  onSearch(){
 
 </script>
 </head>
-<body>
+<body >
 <br>
 <br>
 
+<center>
 <form:form method="post" action="typeAddAction.dog">
-  <table width="800px">
+  <table width="800px" align="center">
   <tr >
   <th colspan="2" align="left" bgcolor="#497c09" ><h3><font color="#FFFFFF">Criteria For dog..</font></h3></th>
   </tr>
@@ -132,3 +133,4 @@ function  onSearch(){
 </body>
 </html>
 <%@ include file="/jsp/template_footer.jsp" %>
+</center>

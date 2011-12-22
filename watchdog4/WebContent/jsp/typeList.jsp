@@ -33,6 +33,7 @@ function onADD(){
 <br>
 <br>
 
+<center>
 <%-- // use our pagedListHolder --%>
 <jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder"/>
 <%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
@@ -80,3 +81,4 @@ function onADD(){
 </body>
 </html>
 <%@ include file="/jsp/template_footer.jsp" %>
+</center>
